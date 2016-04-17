@@ -1,0 +1,49 @@
+<?php
+if ($_POST){
+$name=$_POST['name'];
+$comment=$_POST['comment'];
+$connect=mysql_connect("localhost","root","");
+
+if($connect){
+mysql_select_db("comments",$connect);
+$query="INSERT INTO DATA(Name,Comment)VALUES(\"".$name."\",\"".$comment. "\")";
+if (mysql_query($query)){
+
+
+}else{
+die ("Failed:".mysql_error());
+}
+
+} else {
+die ("Failed to connect to mysql:".mysql_error());
+}
+}
+
+$connect=mysql_connect("localhost","root","");
+if($connect){
+mysql_select_db("comments",$connect);
+$query7="SELECT* FROM data";
+$result=mysql_query($query7);
+while($row=mysql_fetch_array($result)){
+echo $row['Name'] ."<br><br>". $row['Comment'];
+}
+
+}else{
+die ("Failed to connect to mysql:".mysql_error());
+}
+
+?>
+
+
+<html>
+<body>
+<form action="" method="POST" >
+Name:<br>
+<input type= "text" name="name"><br>
+Comment:<br>
+<textarea name="comment" rows= "10" cols="40"></textarea><br>
+<input type="submit" value="POST">
+</form>
+</body>
+
+</html>
